@@ -1,0 +1,49 @@
+*{
+    padding: 0;
+}
+
+
+.container{
+    display: grid;
+    grid-template-areas: "he he he he he "
+                        "as1  main main main as2"
+                        "fo fo fo fo fo";
+    height: 200vh;
+    background-color: gray;
+    grid-template-rows: 5% 90% 5%;
+}
+
+.header{
+    grid-area: he;
+    background-color: red;
+}
+
+.main{
+    grid-area: main;
+    background-color: orange;
+    display: flex;
+    flex-wrap: wrap;
+   
+}
+.item{
+    background-color: red;
+    padding: 10px 15px 15px;
+    text-align: center;
+    margin: 10px ;
+    border-radius: 10px;
+    flex: 0 0 27.30%;
+ 
+  
+}
+.aside1{
+    grid-area: as1;
+    background-color: green;
+}
+.aside2{
+    grid-area: as2;
+    background-color: wheat;
+}
+.footer{
+    grid-area: fo;
+    background-color: black;
+}
