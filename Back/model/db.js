@@ -8,11 +8,11 @@ const Schema = mongo.Schema
 
 const schema =new Schema ({
     id:Schema.ObjectId | Number,
-    task_Name:String,
+    task_name:String,
     study_time:Number,
     day:Number,
-    Month:Number,
-    Year:Number
+    month:Number,
+    year:Number
 })
 
 const TODO = mongo.model('TODO',schema)
