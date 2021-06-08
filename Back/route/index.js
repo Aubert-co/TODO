@@ -7,9 +7,18 @@ const day = data.getDay()+1
 const mongo = require('../model/db')
 
 
-route.get('/index',(req,res)=>{
-    console.log('here')
+route.get('/index',async(req,res)=>{
+    try{
+     mongo.insertMany({
+        task_name:'env',
+        study_time:60
+    })
+   
     res.send('index')
+}catch(err){
+    throw err
+}
+
 })
 
 
@@ -18,14 +27,6 @@ route.post('/newTask',(req,res)=>{
     try{
     const {task_name,study_time} = req.body
 
-    console.log(typeof task_name,typeof study_time,typeof year,typeof day,typeof month)
-    mongo.insertMany({
-        task_name,
-        study_time,
-        day,
-        month,
-        year
-    })
 
     res.send({msg:'sucess'})
     }catch(err){
