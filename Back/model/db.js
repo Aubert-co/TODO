@@ -7,14 +7,11 @@ mongo.connect(`${process.env.HOST_MONGO}`,{useUnifiedTopology:true,useNewUrlPars
 const Schema = mongo.Schema
 
 const schema =new Schema ({
-    id:Schema.ObjectId | Number,
     task_name:String,
     study_time:Number,
-    day:Number,
-    month:Number,
-    year:Number
+
 })
 
-const TODO = mongo.model('TODO',schema)
+const TODO = mongo.model('tasks',schema)
 
 module.exports = TODO
