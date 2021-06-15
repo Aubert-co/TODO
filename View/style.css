@@ -27,13 +27,12 @@
 }
 .item{
     background-color: red;
-    padding: 10px 15px 15px;
     text-align: center;
-    margin: 10px ;
+    margin:10px;
     border-radius: 10px;
     flex: 0 0 27.30%;
     height: 20%;
-  
+    
 }
 .aside1{
     grid-area: as1;
