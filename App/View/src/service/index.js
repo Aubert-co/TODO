@@ -1,9 +1,14 @@
-function ApiSelectItem(){
-   return fetch('http://localhost:8080/tasks/uncomplete')
-   .then((resp)=>resp.json())
+async function ApiSelectItemUncomplete(){
+  const data = await fetch('http://localhost:8080/tasks/uncomplete')
+  const {results} =await  data.json()
+  
+  return results
 }
-
-function ApiDelete (id){
+async function ApiSelectItemComplete(){
+  return fetch('http://localhost:8080/tasks/complete')
+  .then((resp)=>resp.json())
+}
+async function ApiDelete (id){
   return fetch('http://localhost:8080/tasks',{
     method:'DELETE',
     body:JSON.stringify({id}),
@@ -12,15 +17,15 @@ function ApiDelete (id){
   .then((resp)=>resp.json())
 }
 
-function ApiInsert(task_name,task_time){
-  return fetch('http://localhost:8080/tasks',{
+async function ApiInsert(task_name){
+  return fetch('http://localhost:8080/tasksinsert',{
     method:'POST',
-    body:JSON.stringify({task_name,task_time}),
+    body:JSON.stringify({task_name}),
     headers:{'Content-Type':'application/json'}
   }) 
   .then((resp)=>resp.json())
 }
-function ApiComplete(id){
+async function ApiComplete(id){
   return fetch('http://localhost:8080/tasks',{
     method:'DELETE',
     body:JSON.stringify({id}),
@@ -28,7 +33,7 @@ function ApiComplete(id){
   })
   .then((resp)=>resp.json())
 }
-function ApiUpdate(){
+async function ApiUpdate(){
 return fetch('http://localhost:8080/tasks',{
   method:'PUT',
   body:JSON.stringify({id}),
@@ -36,7 +41,7 @@ return fetch('http://localhost:8080/tasks',{
 })
 .then((resp)=>resp.json())
 }
-export default {ApiSelectItem,ApiDelete,ApiInsert,ApiUpdate,ApiComplete}
+export default {ApiSelectItemUncomplete,ApiDelete,ApiInsert,ApiUpdate,ApiComplete,ApiSelectItemComplete}
 
 
 
