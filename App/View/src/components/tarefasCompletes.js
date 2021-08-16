@@ -2,7 +2,7 @@ import React,{useState,useEffect} from "react"
 import styled from 'styled-components'
 import Api from '../service/index'
 
-const {ApiSelectItem} = Api
+const {ApiSelectItemComplete} = Api
 const TarefasFeitas = styled.div`
 width: 33%;
 background-color: white;
@@ -10,10 +10,9 @@ border: 5px solid rgb(34, 150, 185);
 
 .done{
     display: flex;
-    text-align: center;
-    align-items: center; 
+    
     width: 50%;
-    justify-content: center;
+    flex-direction:column;
     border: 5px solid rgb(34,150,185);
     font-size: large;
     height: 20%;
@@ -35,73 +34,43 @@ h5{
    color: rgb(34, 150, 185);
 }
 `
-
 const Render = ({datas})=>{
     
     const map = ({task_name,task_time,id})=>{
-        const [one] =  task_name
-        ,name = task_name.replace(one,one.toLocaleUpperCase())
-        , MinOurHrs = task_time.lenght === 2 ? 'hrs' :'min'
+        const time = task_time.toString()
+        const MinOurHrs = time.length === 2 ?'min':'hrs'
+        const [one] = task_name
+        const name = task_name.replace(one,one.toLocaleUpperCase())
         return (
-      
-        <div className="done" id={id}>
+        <div className="done"  key={id}>
             <div className="name">
                 {name}
             </div>
 
             <div className="time">
-            Tempo Gasto {task_time + MinOurHrs}
+                Tempo Gasto {task_time + MinOurHrs}
             </div>
         </div>
-
-    
         )
     }
-    return (
-        <>
-        {datas.map(map)}
-        </> 
-        )              
-    }
-function Item(){
-    const lastThreeTask = (arrays,lenght=3)=>{
+    return <>{datas.map(map)}</> 
+                    
+}
 
-        const f = arrays.filter((val,ind,a)=>{
-          
-          if(ind + lenght === a.length){
-            lenght--
-            return val
-          }
-          if( a.length < lenght)return val
-        })
-        return f
-        }
+export default function Item(){
+    const lastThreeTask = (array,lenght=3)=>array.length<3 ? array : array.slice(array.length-3,lenght+1)
+
     const [datas,setDatas] = useState([])
     useEffect(()=>{
-  
-        ApiSelectItem()
-        .then((resp)=>{
-            setDatas(resp.results)
-        })
+        ApiSelectItemComplete()
+        .then(resp=>setDatas(resp.results))
     },[])    
- 
         return (
-            <>
+            <TarefasFeitas>
+              <div className="item">
+                <h1>Últimas Tarefas</h1>
                 <Render datas={lastThreeTask(datas)}></Render>      
-            </>
+                </div>
+            </TarefasFeitas>
         )
 }
-
- function TarefasComplete(){
-    
-    return(
-       <TarefasFeitas>
-            <div className="item">
-           
-                <h1>Últimas Tarefas</h1>
-                <Item/>
-                </div>
-       </TarefasFeitas>
-    )
-}
-export default TarefasComplete
