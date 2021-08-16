@@ -17,6 +17,7 @@ main{
     display: flex;
 }
 footer{height: 10%;}
+
 `
 function App(){
 
@@ -36,3 +37,5 @@ function App(){
 
 
 export default App
+
+
