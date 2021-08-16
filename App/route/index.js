@@ -23,6 +23,33 @@ app
         })
     })
 
+    .post('/tasksinsert',(req,res)=>{
+        const {task_name} = req.body
+        const sql = `INSERT into tasks(task_name,task_complete) VALUES('${task_name}','${0}')`
+
+        db.query(sql,(err)=>{
+            if(err)throw err
+
+            res.status(200).send({msg:'sucess'})
+        })
+    })
+    .put('/completetask',(req,res)=>{
+        const date = new Date(),
+         Day = date.getDate(),
+         Mont = date.getMonth()+1,
+         Year = date.getFullYear(),
+         DATE_TODAY =`${Year}-${Mont}-${Day}`
+
+        const {task_name,id,task_time} = req.body
+        ,sql = `UPDATE tasks SET task_name='${task_name}' SET task_date='${DATE_TODAY}' 
+        SET task_complete = 1 SET task_time='${task_time}' WHERE id='${id}'`
+
+        db.query(sql,(err)=>{
+            if(err)throw err
+
+            res.status(200).send({msg:'sucess'})
+        })
+    })
     .post('/tasks',(req,res)=>{
         const date = new Date(),
          Day = date.getDate(),
@@ -34,7 +61,7 @@ app
         const {task_name,task_complete,task_time} = req.body
         const sql = `INSERT INTO tasks(task_name,task_date,task_complete) VALUES('${task_name}','${DATE_TODAY}','${task_complete}')`
 
-        db.query(sql,(err,)=>{
+        db.query(sql,(err)=>{
             if(err)throw err
 
             res.status(200).send({msg:'sucess'})
@@ -64,7 +91,7 @@ app
 
             res.status(200).send({msg:'deleted'})
         })
-        res.status(200).send({msg:'sucess'})
+   
     })
 
 module.exports = app
