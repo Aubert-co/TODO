@@ -1,9 +1,10 @@
 import React,{useState,useEffect} from "react"
 import styled from 'styled-components'
-import Api from '../service/index'
-import Item from '../styles/index'
-const {ApiInsert,ApiSelectItemUncomplete,ApiDelete}  = Api
 
+import Api  from '../service/index'
+import Item from '../styles/index'
+
+const {ApiInsert,ApiDelete,ApiSelectItemUncomplete} = Api
 const TarefasDiv = styled.div`
 width: 33%;
 background-color: white;
@@ -24,6 +25,7 @@ const ListTaskUncompplete =({datas})=>{
 }
 const SETvalues = async (setDatas)=>{
     const resp = await  ApiSelectItemUncomplete()
+    console.log(resp)
     setDatas(resp)
 }
 function Tarefas(){
