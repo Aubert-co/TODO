@@ -1,39 +1,22 @@
 import React,{useState,useEffect} from "react"
-import styled from 'styled-components'
 import Api from '../service/index'
+import TarefasFeitas from '../styles/tarefascompletas'
+const {ApiSelectItemComplete,ApiDelete} = Api
 
-const {ApiSelectItemComplete} = Api
-const TarefasFeitas = styled.div`
-width: 33%;
-background-color: white;
-border: 5px solid rgb(34, 150, 185);
-
-.done{
-    display: flex;
-    
-    width: 50%;
-    flex-direction:column;
-    border: 5px solid rgb(34,150,185);
-    font-size: large;
-    height: 20%;
-}
-h5{
-    padding:0;
-    height:0px;
-}
-.done i{
-    cursor: pointer;
+const Itens =({id})=>{
+    const clickDelete = (id)=>{
+        ApiDelete(id)
+    }
+    const clickChange = (id)=>console.log(id)
+    return (
+        <div className="itens">
+            <i className="material-icons" onClick={e=>clickDelete(id)} >delete</i>
+            <i className="material-icons" onClick={e=>clickChange(id)}>create</i>
+        </div>
+    )
 }
 
-.item{    
-   height: 100%;
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   justify-content: space-evenly;
-   color: rgb(34, 150, 185);
-}
-`
+
 const Render = ({datas})=>{
     
     const map = ({task_name,task_time,id})=>{
@@ -43,12 +26,10 @@ const Render = ({datas})=>{
         const name = task_name.replace(one,one.toLocaleUpperCase())
         return (
         <div className="done"  key={id}>
+                <Itens id={id}></Itens>
             <div className="name">
-                {name}
-            </div>
-
-            <div className="time">
-                Tempo Gasto {task_time + MinOurHrs}
+                <p>{name}</p>
+                <p>  Tempo Gasto {task_time + MinOurHrs}</p>
             </div>
         </div>
         )
@@ -67,9 +48,9 @@ export default function Item(){
     },[])    
         return (
             <TarefasFeitas>
-              <div className="item">
-                <h1>Últimas Tarefas</h1>
-                <Render datas={lastThreeTask(datas)}></Render>      
+                <div className="item">
+                    <h1>Últimas Tarefas</h1>
+                    <Render datas={lastThreeTask(datas)}></Render>      
                 </div>
             </TarefasFeitas>
         )
