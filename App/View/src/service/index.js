@@ -42,10 +42,10 @@ const response = await fetch('http://localhost:8080/tasks',{
 })
  return response
 },
-ApiCompleteTask:async function (){
+ApiCompleteTask:async function (id){
   const response = await fetch('http://localhost:8080/completetask',{
   method:'PUT',
-  body:JSON.stringify({id,task_time}),
+  body:JSON.stringify({id,task_time:10}),
   headers:{'Content-Type':'application/json'}
 })
 }
