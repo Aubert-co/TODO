@@ -18,8 +18,7 @@ app.get('/tasks/complete',(req,res)=>{
      DATE_TODAY =`${Year}-${Mont}-${Day}`
 
     const {id,task_time} = req.body
-    ,sql = `UPDATE tasks  SET task_date='${DATE_TODAY}' 
-    SET task_complete = 1 SET task_time='${task_time}' WHERE id='${id}'`
+    ,sql = `UPDATE tasks  SET task_date='${DATE_TODAY}' , task_complete = '1' , task_time='${task_time}' WHERE id='${id}'`
 
     db.query(sql,(err)=>{
         if(err)throw err
