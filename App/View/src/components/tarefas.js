@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import Api  from '../service/index'
 import TarefasDiv from '../styles/index'
 
-const {ApiInsert,ApiDelete,ApiSelectItemUncomplete} = Api
+const {ApiInsert,ApiDelete,ApiSelectItemUncomplete,ApiCompleteTask} = Api
 
 
 //const App =()=><Btn>BUTTON</Btn>
@@ -49,8 +49,9 @@ function Tarefas(){
         setObj({value:true})
         
       }
-      const CompleteTask = ()=>{
-
+      const CompleteTask = (id)=>{
+        ApiCompleteTask(id,'10')
+        setObj({value:true})
       }
     const changeValues =({target})=>setValues(target.value)
     
