@@ -46,7 +46,7 @@ app
         const {id,task_name,task_complete,task_time} = req.body
 
         const sql = `UPDATE tasks SET task_name = '${task_name}' 
-        SET task_complete = '${task_complete}' SET task_time ='${task_time}'   WHERE id=${id}`
+        , task_complete = '${task_complete}' , task_time ='${task_time}'   WHERE id=${id}`
 
         db.query(sql,(err)=>{
             if(err)throw err
