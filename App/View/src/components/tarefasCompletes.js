@@ -40,11 +40,14 @@ const Render = ({datas})=>{
 
 export default function Item(){
     const lastThreeTask = (array,lenght=3)=>array.length<3 ? array : array.slice(array.length-3,lenght+1)
-
+    const [obj,setObj]  =useState({value:true})
     const [datas,setDatas] = useState([])
     useEffect(()=>{
-        ApiSelectItemComplete()
-        .then(resp=>setDatas(resp.results))
+        if(obj.value){
+            ApiSelectItemComplete()
+            .then(resp=>setDatas(resp.results))
+        }
+       
     },[])    
         return (
             <TarefasFeitas>
