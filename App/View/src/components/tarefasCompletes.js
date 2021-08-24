@@ -3,22 +3,32 @@ import Api from '../service/index'
 import TarefasFeitas from '../styles/tarefascompletas'
 const {ApiSelectItemComplete,ApiDelete} = Api
 
-const Itens =({id})=>{
-    const clickDelete = (id)=>{
+
+const clickDelete = (id,setObj)=>{
         ApiDelete(id)
-    }
-    const clickChange = (id)=>console.log(id)
-    return (
-        <div className="itens">
-            <i className="material-icons" onClick={e=>clickDelete(id)} >delete</i>
-            <i className="material-icons" onClick={e=>clickChange(id)}>create</i>
-        </div>
-    )
+        setObj({value:true})
+        
 }
+const clickChange = (id)=>console.log(id)
+   
+   
+const ReceiveDatas =async (setDatas)=>{
+    const resp = await ApiSelectItemComplete()
+    setDatas(resp)
+   
+}
+export default function Item({UpdateTask}){
+    const lastThreeTask = (array,lenght=3)=>array.length<3 ? array : array.slice(array.length-3,lenght+1)
+    const [obj,setObj]  =useState({value:false})
+    const [datas,setDatas] = useState([])
+    useEffect(()=>{
+        ReceiveDatas(setDatas)
+        if(obj.value || UpdateTask){
 
+         ReceiveDatas(setDatas)
+        }
+    },[obj])    
 
-const Render = ({datas})=>{
-    
     const map = ({task_name,task_time,id})=>{
         const time = task_time.toString()
         const MinOurHrs = time.length === 2 ?'min':'hrs'
@@ -26,7 +36,10 @@ const Render = ({datas})=>{
         const name = task_name.replace(one,one.toLocaleUpperCase())
         return (
         <div className="done"  key={id}>
-                <Itens id={id}></Itens>
+                <div className="itens">
+                    <i className="material-icons" onClick={e=>clickDelete(id,setObj)} >delete</i>
+                    <i className="material-icons" onClick={e=>clickChange(id)}>create</i>
+                </div>
             <div className="name">
                 <p>{name}</p>
                 <p>  Tempo Gasto {task_time + MinOurHrs}</p>
@@ -34,26 +47,11 @@ const Render = ({datas})=>{
         </div>
         )
     }
-    return <>{datas.map(map)}</> 
-                    
-}
-
-export default function Item(){
-    const lastThreeTask = (array,lenght=3)=>array.length<3 ? array : array.slice(array.length-3,lenght+1)
-    const [obj,setObj]  =useState({value:true})
-    const [datas,setDatas] = useState([])
-    useEffect(()=>{
-        if(obj.value){
-            ApiSelectItemComplete()
-            .then(resp=>setDatas(resp.results))
-        }
-       
-    },[])    
         return (
             <TarefasFeitas>
                 <div className="item">
                     <h1>Últimas Tarefas</h1>
-                    <Render datas={lastThreeTask(datas)}></Render>      
+                        {datas.map(lastThreeTask(map))}
                 </div>
             </TarefasFeitas>
         )
