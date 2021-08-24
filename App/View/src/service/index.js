@@ -6,8 +6,9 @@ const obj =  {
   return results
 },
 ApiSelectItemComplete:async function(){
-  return fetch('http://localhost:8080/tasks/complete')
-  .then((resp)=>resp.json())
+  const data = await fetch('http://localhost:8080/tasks/complete')
+  const {results} = await data.json()
+  return results
 },
 ApiDelete:async function (id){
   return fetch('http://localhost:8080/tasks',{
@@ -36,16 +37,16 @@ ApiComplete:async function(id){
 },
 ApiUpdate:async function(){
 const response = await fetch('http://localhost:8080/tasks',{
-  method:'PUT',
+  method:'PUT', 
   body:JSON.stringify({id}),
   headers:{'Content-Type':'application/json'}
 })
  return response
 },
-ApiCompleteTask:async function (id){
+ApiCompleteTask:async function (id,task_time){
   const response = await fetch('http://localhost:8080/completetask',{
   method:'PUT',
-  body:JSON.stringify({id,task_time:10}),
+  body:JSON.stringify({id,task_time}),
   headers:{'Content-Type':'application/json'}
 })
 }
