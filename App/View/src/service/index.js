@@ -14,7 +14,8 @@ ApiDelete:async function (id){
   return fetch('http://localhost:8080/tasks',{
     method:'DELETE',
     body:JSON.stringify({id}),
-    headers:{'Content-Type':'application/json'}
+    headers:{'Content-Type':'application/json'},
+    
   })
   .then((resp)=>resp.json())
 },
