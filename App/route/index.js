@@ -1,7 +1,7 @@
 const app = require('express')()
 const db = require('../model/db')
 
-/*app
+app
     .get('/tasks/uncomplete',(req,res)=>{
         const FALSE = 0
         const sql = `SELECT * FROM tasks WHERE task_complete='${FALSE}'`
@@ -67,10 +67,7 @@ const db = require('../model/db')
         })
    
     })
-*/
-app.post('/envio',(req,res)=>{
-    console.log(req.body)
-})
+
 
 module.exports = app
 
