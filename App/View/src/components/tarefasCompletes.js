@@ -17,17 +17,18 @@ const ReceiveDatas =async (setDatas)=>{
     setDatas(resp)
    
 }
-export default function Item({UpdateTask}){
+export default function Item({setUpdate,updateElement}){
+   
     const lastThreeTask = (array,lenght=3)=>array.length<3 ? array : array.slice(array.length-3,lenght+1)
     const [obj,setObj]  =useState({value:false})
     const [datas,setDatas] = useState([])
     useEffect(()=>{
         ReceiveDatas(setDatas)
-        if(obj.value || UpdateTask){
-
+        if(obj ||updateElement ){
+            //console.log(updateElement)
          ReceiveDatas(setDatas)
         }
-    },[obj])    
+    },[updateElement])    
 
     const map = ({task_name,task_time,id})=>{
         const time = task_time.toString()
@@ -37,7 +38,7 @@ export default function Item({UpdateTask}){
         return (
         <div className="done"  key={id}>
                 <div className="itens">
-                    <i className="material-icons" onClick={e=>clickDelete(id,setObj)} >delete</i>
+                    <i className="material-icons" onClick={e=>clickDelete(id,setUpdate)} >delete</i>
                     <i className="material-icons" onClick={e=>clickChange(id)}>create</i>
                 </div>
             <div className="name">
