@@ -1,8 +1,7 @@
 import Tarefas from './tarefas'
 import TarefasComplete from './tarefasCompletes'
 import styled from 'styled-components'
-import React,{useState} from "react"
-import MyContext from './contexts/myContext'
+import React,{useContext, useState} from "react"
 
 
 const Container = styled.div`
@@ -17,21 +16,19 @@ main{
     display: flex;
 }
 `
-const Update = {
-    render:false
-}
-const UpdateItem = React.createContext(Update.render)
+
+
 function App(){
-    
+    const [updateElement,setUpdate] = useState(false)
     return (
         <Container>
         <header></header>
         
         <main>
-            <UpdateItem>
-           <TarefasComplete ></TarefasComplete>
-            <Tarefas ></Tarefas>
-            </UpdateItem>
+      
+           <TarefasComplete updateElement={updateElement} setUpdate={setUpdate}></TarefasComplete>
+            <Tarefas  setUpdate={setUpdate}></Tarefas>
+      
         </main>
 
         <footer></footer>
