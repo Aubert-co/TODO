@@ -24,13 +24,14 @@ const SendDatas = (name,values,setObj)=>{
         case 'complete':
             ApiCompleteTask(values.id,values.time);
             break;
-        default :console.log('error')
+        default :console.error('error')
     }
     setObj({value:true})
 }
 
 
-function Tarefas(){
+export default function Tarefas({setUpdate}){
+   
     const [datas,setDatas] = useState([])
     const [obj,setObj] = useState({value:false})
     const [values,setValues] = useState("")
@@ -42,8 +43,10 @@ function Tarefas(){
         ReceiveDatas(setDatas)
         if(obj.value=== true){
             ReceiveDatas(setDatas)
-            
+            setUpdate(true)
+
         }
+       
      },[obj])
   
 
@@ -76,4 +79,3 @@ function Tarefas(){
     
     )
 }
-export default  Tarefas
