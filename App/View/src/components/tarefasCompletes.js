@@ -5,9 +5,8 @@ const {ApiSelectItemComplete,ApiDelete} = Api
 
 
 const clickDelete = (id,setObj)=>{
-        ApiDelete(id)
-        setObj({value:true})
-        
+    ApiDelete(id)
+    setObj(true)
 }
 const clickChange = (id)=>console.log(id)
    
@@ -20,14 +19,13 @@ const ReceiveDatas =async (setDatas)=>{
 export default function Item({setUpdate,updateElement}){
    
     const lastThreeTask = (array,lenght=3)=>array.length<3 ? array : array.slice(array.length-3,lenght+1)
-    const [obj,setObj]  =useState({value:false})
+  
     const [datas,setDatas] = useState([])
     useEffect(()=>{
         ReceiveDatas(setDatas)
-        if(obj ||updateElement ){
-            //console.log(updateElement)
-         ReceiveDatas(setDatas)
-        }
+            console.log(updateElement)
+       
+        
     },[updateElement])    
 
     const map = ({task_name,task_time,id})=>{
