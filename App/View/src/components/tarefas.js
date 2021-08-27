@@ -1,8 +1,9 @@
-import React,{useState,useEffect} from "react"
+import React,{useState,useEffect,useContext} from "react"
 import styled from 'styled-components'
 
 import Api  from '../service/index'
 import TarefasDiv from '../styles/index'
+import MyContext from "./actions"
 import Select from './select'
 const {ApiInsert,ApiDelete,ApiSelectItemUncomplete,ApiCompleteTask} = Api
 
@@ -32,8 +33,8 @@ const completeTask= ({id,time},setObj)=>{
   
    
  }
-export default function Tarefas({setUpdate}){
-    console.log('here tarefas')
+export default function Tarefas(){
+    const {setUpdate} = useContext(MyContext)
     const [datas,setDatas] = useState([])
     const [obj,setObj] = useState({value:false,update:false})
     const [values,setValues] = useState("")
@@ -44,10 +45,8 @@ export default function Tarefas({setUpdate}){
     useEffect(()=>{
         ReceiveDatas(setDatas)
 
-        if(obj.update=== true)setUpdate(true)
+        if(obj.update=== true)setUpdate({update:true})
         
-       
-       
      },[obj])
   
    
