@@ -2,7 +2,7 @@ import Tarefas from './tarefas'
 import TarefasComplete from './tarefasCompletes'
 import styled from 'styled-components'
 import React,{useContext, useState} from "react"
-
+import MyContext from './actions'
 
 const Container = styled.div`
     flex-direction: column;
@@ -19,16 +19,16 @@ main{
 
 
 function App(){
-    const [updateElement,setUpdate] = useState(false)
+    const [updateElement,setUpdate] = useState({update:false})
     return (
         <Container>
         <header></header>
         
         <main>
-      
-           <TarefasComplete updateElement={updateElement} setUpdate={setUpdate}></TarefasComplete>
-            <Tarefas  setUpdate={setUpdate}></Tarefas>
-      
+            <MyContext.Provider value={{updateElement,setUpdate}}>
+           <TarefasComplete ></TarefasComplete>
+            <Tarefas ></Tarefas>
+            </MyContext.Provider>
         </main>
 
         <footer></footer>
