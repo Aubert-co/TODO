@@ -1,12 +1,13 @@
-import React,{useState,useEffect} from "react"
+import React,{useState,useEffect,useContext} from "react"
 import Api from '../service/index'
 import TarefasFeitas from '../styles/tarefascompletas'
+import MyContext from "./actions"
 const {ApiSelectItemComplete,ApiDelete} = Api
 
 
-const clickDelete = (id,setObj)=>{
+const clickDelete = (id,setUpdate)=>{
     ApiDelete(id)
-    setObj(true)
+    setUpdate({update:true})
 }
 const clickChange = (id)=>console.log(id)
    
@@ -14,20 +15,20 @@ const clickChange = (id)=>console.log(id)
 const ReceiveDatas =async (setDatas)=>{
     const resp = await ApiSelectItemComplete()
     setDatas(resp)
-   
+
 }
-export default function Item({setUpdate,updateElement}){
+export default function Item(){
    
     const lastThreeTask = (array,lenght=3)=>array.length<3 ? array : array.slice(array.length-3,lenght+1)
   
     const [datas,setDatas] = useState([])
+    const {setUpdate,updateElement} = useContext(MyContext)
+    
     useEffect(()=>{
         ReceiveDatas(setDatas)
-            console.log(updateElement)
-       
-        
-    },[updateElement])    
 
+    },[updateElement])    
+    
     const map = ({task_name,task_time,id})=>{
         const time = task_time.toString()
         const MinOurHrs = time.length === 2 ?'min':'hrs'
