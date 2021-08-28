@@ -1,6 +1,5 @@
 import React,{useState,useEffect,useContext} from "react"
 import styled from 'styled-components'
-
 import Api  from '../service/index'
 import TarefasDiv from '../styles/index'
 import MyContext from "./actions"
@@ -46,7 +45,6 @@ export default function Tarefas(){
         ReceiveDatas(setDatas)
 
         if(obj.update=== true)setUpdate({update:true})
-        
      },[obj])
   
    
@@ -55,7 +53,6 @@ export default function Tarefas(){
     <div className="done open" key={id}>
         <div className="itens">
             <i className="material-icons" onClick={()=>SendDatas('delete',{id:id},setObj)}>delete</i>
-            <i className="material-icons">create</i>
             <i className="material-icons" onClick={()=>completeTask({id:id,time:selectValues},setObj)} >check_box_outline_blank</i>
         </div>
                 <h3> {task_name}</h3>
@@ -69,7 +66,6 @@ export default function Tarefas(){
             <div className="item">
                 <h1>TODO LIST</h1>
                     <div className="add">
-                    
                         <input type="text" onChange={changeValues} />
                         <h1 onClick={()=>SendDatas('insert',{name:values},setObj)}>+</h1>
                     </div>
