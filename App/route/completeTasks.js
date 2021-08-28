@@ -1,8 +1,9 @@
 const app = require('express')()
 const db = require('../model/db')
+
 app.get('/tasks/complete',(req,res)=>{
     const TRUE = 1
-    const sql = `SELECT * FROM tasks WHERE task_complete='${TRUE}'`
+    const sql = `SELECT * FROM tasks WHERE task_complete='${TRUE}' ORDER BY id ASC `
     //const sql = "SELECT * FROM taskS WHERE task_date='2021-07-13'"
     db.query(sql,(err,results)=>{
         if(err)throw err
