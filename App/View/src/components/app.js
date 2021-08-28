@@ -26,8 +26,8 @@ function App(){
         
         <main>
             <MyContext.Provider value={{updateElement,setUpdate}}>
-           <TarefasComplete ></TarefasComplete>
-            <Tarefas ></Tarefas>
+                <TarefasComplete />
+                <Tarefas />
             </MyContext.Provider>
         </main>
 
