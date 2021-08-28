@@ -2,56 +2,65 @@ import React,{useState,useEffect,useContext} from "react"
 import Api from '../service/index'
 import TarefasFeitas from '../styles/tarefascompletas'
 import MyContext from "./actions"
+
 const {ApiSelectItemComplete,ApiDelete} = Api
+
 
 
 const clickDelete = (id,setUpdate)=>{
     ApiDelete(id)
     setUpdate({update:true})
 }
-const clickChange = (id)=>console.log(id)
-   
-   
+const DeleteButton = ({id,setUpdate})=>{
+    return (
+        <div className="itens" >
+            <i className="material-icons"  onClick={e=>clickDelete(id,setUpdate)} >delete</i>
+        </div>
+)}
+const NameItens = ({name,task_time})=>{
+        const time = task_time % 60 === 0 ? task_time/60 : task_time
+        const MinOurHrs = task_time % 60 === 0 ? 'hrs' : 'min'
+    return (
+     <div className="name">
+         <p>{name}</p>
+         <p> Tempo Gasto  {time + MinOurHrs}</p>
+     </div> 
+     )}
+const DivDone = ({id,name,time,setUpdate})=>{
+    const [ShowDeleteBtn,SetDeleteBtn] = useState(false)
+  
+    return (
+    <div className="done"  key={id} onMouseLeave={()=>SetDeleteBtn(false)} onMouseEnter={()=>SetDeleteBtn(true)}>
+      {ShowDeleteBtn===true ? <DeleteButton id={id} setUpdate={setUpdate}/> : <NameItens key={id} name={name} task_time={time} />}
+    </div>
+)}
+
 const ReceiveDatas =async (setDatas)=>{
     const resp = await ApiSelectItemComplete()
     setDatas(resp)
+}
+
+const MapTasks = ({datas,setUpdate})=>{
+    const lastThreeTask = (array,lenght=3)=>array.length<3 ? array : array.slice(array.length-lenght,array.lenght)
+    
+    const map = ({task_name,task_time,id})=><DivDone key={id} id={id} time={task_time} name={task_name} setUpdate={setUpdate}/>    
+    
+    return lastThreeTask(datas).map(map)
 
 }
 export default function Item(){
-   
-    const lastThreeTask = (array,lenght=3)=>array.length<3 ? array : array.slice(array.length-3,lenght+1)
-  
     const [datas,setDatas] = useState([])
     const {setUpdate,updateElement} = useContext(MyContext)
-    
     useEffect(()=>{
         ReceiveDatas(setDatas)
-
     },[updateElement])    
     
-    const map = ({task_name,task_time,id})=>{
-        const time = task_time.toString()
-        const MinOurHrs = time.length === 2 ?'min':'hrs'
-        const [one] = task_name
-        const name = task_name.replace(one,one.toLocaleUpperCase())
+    
         return (
-        <div className="done"  key={id}>
-                <div className="itens">
-                    <i className="material-icons" onClick={e=>clickDelete(id,setUpdate)} >delete</i>
-                    <i className="material-icons" onClick={e=>clickChange(id)}>create</i>
-                </div>
-            <div className="name">
-                <p>{name}</p>
-                <p>  Tempo Gasto {task_time + MinOurHrs}</p>
-            </div>
-        </div>
-        )
-    }
-        return (
-            <TarefasFeitas>
+            <TarefasFeitas >
                 <div className="item">
                     <h1>Últimas Tarefas</h1>
-                        {datas.map(lastThreeTask(map))}
+                       <MapTasks datas={datas} setUpdate={setUpdate}/>
                 </div>
             </TarefasFeitas>
         )
