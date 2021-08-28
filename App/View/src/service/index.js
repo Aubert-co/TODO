@@ -36,7 +36,7 @@ ApiComplete:async function(id){
   })
   .then((resp)=>resp.json())
 },
-ApiUpdate:async function(){
+ApiUpdate:async function({task_name}){
 const response = await fetch('http://localhost:8080/tasks',{
   method:'PUT', 
   body:JSON.stringify({id}),
