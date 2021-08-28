@@ -4,7 +4,7 @@ const Item = styled.div`
 width: 33%;
 background-color: white;
 border: 5px solid rgb(34, 150, 185);
-
+margin-left: 10px;
 .item{
 height: 100%;
 display: flex;
