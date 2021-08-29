@@ -1,4 +1,4 @@
-const obj =  {
+export const obj =  {
    ApiSelectItemUncomplete:async function(){
   const data = await fetch('http://localhost:8080/tasks/uncomplete')
   const {results} =await  data.json()
@@ -55,4 +55,3 @@ ApiCompleteTask:async function (id,task_time){
 
 //export  const obj =  {ApiSelectItemUncomplete,ApiDelete,ApiInsert,ApiUpdate,ApiComplete,ApiSelectItemComplete}
 
-export default obj
