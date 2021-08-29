@@ -1,10 +1,10 @@
 import React,{useState,useEffect,useContext} from "react"
 import styled from 'styled-components'
-import Api  from '../service/index'
+import {ApiInsert,ApiDelete,ApiSelectItemUncomplete,ApiCompleteTask}  from '../service/index'
 import TarefasDiv from '../styles/index'
 import MyContext from "./actions"
 import Select from './select'
-const {ApiInsert,ApiDelete,ApiSelectItemUncomplete,ApiCompleteTask} = Api
+//const {ApiInsert,ApiDelete,ApiSelectItemUncomplete,ApiCompleteTask} = Api
 
 
 
