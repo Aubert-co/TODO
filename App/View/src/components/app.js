@@ -1,22 +1,8 @@
 import Tarefas from './tarefas'
 import TarefasComplete from './tarefasCompletes'
-import styled from 'styled-components'
 import React,{useContext, useState} from "react"
-import MyContext from './actions'
-
-const Container = styled.div`
-    flex-direction: column;
-    height: 100vh;
-    background-color: rgb(19, 73, 134);
-
-header{height: 20%;}
-footer{height: 10%;}
-main{
-    height: 70%;
-    display: flex;
-}
-`
-
+import MyContext from '../contexts/actions'
+import { Container } from '../styles/index'
 
 function App(){
     const [updateElement,setUpdate] = useState({update:false})
