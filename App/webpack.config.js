@@ -16,9 +16,8 @@ module.exports = {
       devServer: {
         contentBase: path.join('./View/dist'),
         compress: true,
-        port: 7000,
-        useLocalIp: true,
-        host:'192.168.100.54',
+        port:'7000',
+        host:'localhost',
         watchOptions: {
             poll: true
         }
