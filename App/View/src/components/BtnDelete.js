@@ -1,16 +1,12 @@
 import React,{useContext} from 'react'
-import Api from '../service/index'
-const {ApiDelete}  =Api
+import {ApiDelete} from '../service/index'
 
+export default  function DeleteButton({id,Event}){
 
-return function DeleteButton(id,Event){
     const clickDelete = (id)=>{
         ApiDelete(id)
         Event({update:true})
     }
-    return (
-        <div className="itens" >
-            <i className="material-icons"  onClick={e=>clickDelete(id)} >delete</i>
-        </div>
-    )
+    return <i className="material-icons"  onClick={e=>clickDelete(id)} >delete</i>
+    
 }
