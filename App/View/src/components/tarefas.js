@@ -1,10 +1,11 @@
 import React,{useState,useEffect,useContext} from "react"
-import styled from 'styled-components'
-import {ApiInsert,ApiDelete,ApiSelectItemUncomplete,ApiCompleteTask}  from '../service/index'
-import TarefasDiv from '../styles/index'
-import MyContext from "./actions"
+import MyContext from "../contexts/actions"
 import Select from './select'
-//const {ApiInsert,ApiDelete,ApiSelectItemUncomplete,ApiCompleteTask} = Api
+import DeleteButton from './BtnDelete'
+import BtnInsert from './BtnInsert'
+import BtnCompleteTasks from "./BtnCompleteTask"
+import {ApiSelectItemUncomplete} from '../service/index'
+import {Itens,Item,Done,TarefasDiv} from "../styles"
 
 
 
@@ -13,64 +14,47 @@ const ReceiveDatas = async (setDatas)=>{
     setDatas(resp)
 }
 
-const SendDatas = (name,values,setObj)=>{
-    switch(name){
-        case 'delete': 
-            ApiDelete(values.id)
-            break
-        case 'insert':
-            ApiInsert(values.name)
-            break
-        default :console.error('error')
-    }
-    setObj({value:true})
-}
 
-const completeTask= ({id,time},setObj)=>{
-    setObj({update:true})
-    ApiCompleteTask(id,time);
-  
-   
- }
+
 export default function Tarefas(){
     const {setUpdate} = useContext(MyContext)
     const [datas,setDatas] = useState([])
-    const [obj,setObj] = useState({value:false,update:false})
-    const [values,setValues] = useState("")
+    const [obj,setObj] = useState({UpdateAll:false,update:false})
+    
     const [selectValues,setSelect] = useState(5)
     
-    const changeValues =({target})=>setValues(target.value)
+  
 
     useEffect(()=>{
         ReceiveDatas(setDatas)
-
-        if(obj.update=== true)setUpdate({update:true})
+        if(obj.UpdateAll=== true)setUpdate({update:true})
      },[obj])
   
    
    
-    const map = ({task_name,id})=>
-    <div className="done open" key={id}>
-        <div className="itens">
-            <i className="material-icons" onClick={()=>SendDatas('delete',{id:id},setObj)}>delete</i>
-            <i className="material-icons" onClick={()=>completeTask({id:id,time:selectValues},setObj)} >check_box_outline_blank</i>
-        </div>
+    const map = ({task_name,id})=>{
+       
+    return (
+    <Done className="done open" key={id}>
+        <Itens className="itens">
+            <DeleteButton id={id} Event={setObj}/>
+            <BtnCompleteTasks id={id} time={selectValues} Event={setObj}/>
+           
+        </Itens>
                 <h3> {task_name}</h3>
                 <Select setSelect={setSelect} selectValues={selectValues}></Select>
-     </div>
-    
+     </Done>
+     )
+    }
         
     return (
         
         <TarefasDiv >
-            <div className="item">
+            <Item className="item">
                 <h1>TODO LIST</h1>
-                    <div className="add">
-                        <input type="text" onChange={changeValues} />
-                        <h1 onClick={()=>SendDatas('insert',{name:values},setObj)}>+</h1>
-                    </div>
+                <BtnInsert Event={setObj}/>
                 {datas.map(map)} 
-            </div> 
+            </Item> 
         </TarefasDiv>
     
     )
