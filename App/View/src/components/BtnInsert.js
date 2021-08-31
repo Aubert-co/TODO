@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import { ApiInsert } from '../service'
 import { Add } from '../styles'
-export default function BtnInsert({Event}){
+export  function BtnInsert({Event}){
     const [values,setValues] = useState("")
     const changeValues =({target})=>setValues(target.value)
     
