@@ -7,6 +7,6 @@ export  const NameItens = ({name,task_time})=>{
 return (
  <Name className="name">
      <h3>{name}</h3>
-     <h4> Tempo Gasto  {time + MinOurHrs}</h4>
+     <h4>Time Spent  {time + MinOurHrs}</h4>
  </Name> 
 )}
