@@ -1,9 +1,15 @@
 import React,{useState,useEffect} from "react"
-const Select = ({setSelect,selectValues})=>{
-    
+const Select = ({setSelect})=>{
+        
+        const [EventValue,SetEvent] = useState(5)
+        const ChangeValues = (e)=>{
+                SetEvent(e.target.value)
+                setSelect(e.target.value)
+                
+        }
    return( 
-        <select  value={selectValues} onChange={(e)=>{setSelect(e.target.value)}}>
-                <option value="1">TIME</option>
+        <select  value={EventValue} onChange={(e)=>{ChangeValues(e)}}>
+              
                 <option value="5">5m</option>
                 <option value="10">10m</option>
                 <option value="15">15m</option>
