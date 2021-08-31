@@ -37,7 +37,7 @@ export default function TarefasComplete(){
     
     
         return (
-            <TarefasFeitas >
+            <TarefasFeitas className="tarefasFeitas">
                 <Item className="item">
                     <h1>Últimas Tarefas</h1>
                        <MapTasks datas={datas} setUpdate={setUpdate}/>
