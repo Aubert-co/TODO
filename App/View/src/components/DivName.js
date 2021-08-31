@@ -6,7 +6,7 @@ export  const NameItens = ({name,task_time})=>{
     const MinOurHrs = task_time % 60 === 0 ? 'hrs' : 'min'
 return (
  <Name className="name">
-     <p>{name}</p>
-     <p> Tempo Gasto  {time + MinOurHrs}</p>
+     <h3>{name}</h3>
+     <h4> Tempo Gasto  {time + MinOurHrs}</h4>
  </Name> 
 )}
