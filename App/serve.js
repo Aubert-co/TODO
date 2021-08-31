@@ -7,3 +7,6 @@ app.use(route)
 app.listen(8080,()=>{
     console.log(`running at port 8080`)
 })
+
+
+module.exports  = app
