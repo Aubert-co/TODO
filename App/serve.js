@@ -1,12 +1,14 @@
-const app = require('express')()
-const route = require('./route/route')
+const express = require('express')
+const app = express()
+const bodyParser = require('body-parser')
+const route = require('./api/route')
+const cors = require('cors')
 
+
+route.use(cors())
+app.use(express.json())
 app.use(route)
 
-
-app.listen(8080,()=>{
-    //console.log(`running at port 8080`)
-})
 
 
 module.exports  = app

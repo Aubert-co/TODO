@@ -34,8 +34,6 @@ export default function TarefasComplete(){
     useEffect(()=>{
         ReceiveDatas(setDatas)
     },[updateElement])    
-    
-    
         return (
             <TarefasFeitas className="tarefasFeitas">
                 <Item className="item">
