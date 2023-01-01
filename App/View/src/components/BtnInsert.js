@@ -1,18 +1,20 @@
-import React,{useState} from 'react'
+import React,{useState,useRef} from 'react'
 import { ApiInsert } from '../service'
 import { Add } from '../styles'
-export  function BtnInsert({Event}){
-    const [values,setValues] = useState("")
-    const changeValues =({target})=>setValues(target.value)
-    
-    const SendDatas = (values)=>{
-            ApiInsert(values)
-            Event({update:true})
+
+export  const BtnInsert = ({Event}) =>{
+        const valuesInputRef = useRef("")
+
+        const SendDatas = ()=>{
+                const values =  valuesInputRef.current.value
+                ApiInsert(values)
+                Event({update:true})
         }
-return (
-        <Add className="add">
-                <input type="text" onChange={changeValues} />
-                <h1 onClick={()=>SendDatas(values)}>+</h1>
-        </Add>
+        
+        return (
+                <Add className="add">
+                        <input type="text" ref={valuesInputRef} />
+                        <h1 onClick={SendDatas}>+</h1>
+                </Add>
         )
 }

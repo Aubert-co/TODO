@@ -16,8 +16,8 @@ route
     })
     .post('/tasks/insert/:task_name',async(req,res)=>{
         const {task_name} = req.params
-
-        if(task_name !== null || task_name !== undefined && typeof task_name === 'string')return res.status(402).send({msg:'somethig went wrong'})
+      
+        if(task_name === null || task_name === undefined || typeof task_name !== 'string')return res.status(402).send({msg:'somethig went wrong'})
        
         const consult =await insertTasks(task_name).catch((err)=>{res.status(404).send({msg:'something went wrong'})})
         res.status(200).send({msg:'sucess'})
@@ -38,7 +38,7 @@ route
         const {id,task_time} = req.body
         const Dates = new Date()
         const [data,hour] =  Dates.toISOString().split('T')
-   
+        console.log(req.body)
        if(isNaN(id) || isNaN(task_time))return res.status(402).send({msg:'somethig went wrong'})
         
         const consult =await updateTasks(id,data,task_time).catch((err)=>{res.status(404).send({msg:'something went wrong'})})

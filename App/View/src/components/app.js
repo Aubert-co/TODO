@@ -1,27 +1,31 @@
-import Tarefas from './tarefas'
-import TarefasComplete from './tarefasCompletes'
+import React,{useState} from "react"
+import Tarefas from './tasks'
+import TarefasComplete from './DoneTasks'
 import Recomendation from './recomendation'
-import React,{useContext, useState} from "react"
-import MyContext from '../contexts/actions'
-import UpdateElements from '../contexts/UpdateElements'
+
 import { Container } from '../styles/index'
 
+import insertDatasAndFinishTasks from '../hooks'
+import { ChangeStates } from '../contexts'
+
+
 function App(){
-    const [updateElement,setUpdate] = useState({update:false})
-    const [obj,setObj] = useState({UpdateAll:false,update:false})
+    const [updateComponents,setUpdateComponents] = useState({updateTasksAndRecomend:false,updateDoneTasksAndTasks:false})
+    
+    const {insertDatas,completeTask} =  insertDatasAndFinishTasks(updateComponents,setUpdateComponents)
+   
     return (
         <Container>
         <header></header>
         
-        <main>
-            <MyContext.Provider value={{updateElement,setUpdate}}>
-                    <TarefasComplete />
-                <UpdateElements.Provider value={{obj,setObj}}>
-                    <Tarefas />
+    
+            <main>
+                <ChangeStates.Provider value={{insertDatas,completeTask}} >
+                    <TarefasComplete updateComponents={updateComponents}/>
+                    <Tarefas updateComponents={updateComponents}  setUpdateComponents={setUpdateComponents}/>
                     <Recomendation />
-                </UpdateElements.Provider>
-            </MyContext.Provider>
-        </main>
+                </ChangeStates.Provider>
+            </main>
 
         <footer></footer>
         </Container>

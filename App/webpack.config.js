@@ -1,26 +1,28 @@
-const path = require('path')
-const HTMLWEBPACK = require('html-webpack-plugin')
-const webpack = require('webpack')
-module.exports = {
+const path =require('path')
+const HTMLWEBPACK =require('html-webpack-plugin')
+
+module.exports=   {
     //soucemap mapeamento de todos os arquivos
     devtool:'source-map',
-    
-   // mode:'production',
+    mode: 'development',
     entry :{
-        index:'/View/src/index.js'
+        index:'/View/src/',
+    },
+    performance:{
+        hints:false,
+        maxEntrypointSize: 512000,
+        maxAssetSize: 512000
     },
     output:{
         path:path.resolve('./View/dist'),
-        filename:'[name].bundle.js',
+        filename:'bundle.js',
+        publicPath: '/',
+        
     },
       devServer: {
-        contentBase: path.join('./View/dist'),
-        compress: true,
         port:'7000',
         host:'localhost',
-        watchOptions: {
-            poll: true
-        }
+        historyApiFallback:true,
   },
 module:{
     rules:[

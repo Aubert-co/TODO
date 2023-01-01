@@ -1,29 +1,38 @@
 const Url = "http://localhost:8080/tasks"
 
-async function ApiSelectItemUncomplete(){
-  const data = await fetch(`${Url}/select/uncomplete`)
+async function ApiSelectItemUncomplete(setDatas){
+  const data = await fetch(`${Url}/uncomplete`)
   const {results} =await  data.json()
  
-  return results
+  setDatas(results)
 }
-async function  ApiSelectItemComplete(){
-  const data = await fetch(`${Url}/select/complete`)
+async function  ApiSelectItemComplete(setDatas){
+  const data = await fetch(`${Url}/complete`)
   const {results} = await data.json()
-  return results
+  
+  setDatas(results)
 }
 async function ApiDelete (id){
-  return fetch(`${Url}/delete/${id}`,)
+  return fetch(`${Url}/delete/${id}`,{
+    method:'PUT'
+  })
   .then((resp)=>resp.json())
 }
 
 async function ApiInsert (task_name){
-  return fetch(`${Url}/insert/${task_name}`) 
+  return fetch(`${Url}/insert/${task_name}`,{
+    method:'POST'
+  }) 
   .then((resp)=>resp.json())
 }
 
 
 async function ApiCompleteTask (id,task_time){
-  const response = await fetch(`${Url}/update/${id}/${task_time}`)
+  const response = await fetch(`${Url}/update`,{
+    method:'PUT',
+    body:JSON.stringify({id,task_time}),
+    headers:{'Content-Type':'application/json'}
+  })
 }
 
 

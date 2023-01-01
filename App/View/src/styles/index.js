@@ -5,6 +5,11 @@ export const Container = styled.div`
 flex-direction: column;
 height: 100vh;
 background-color: rgb(19, 73, 134);
+.name{
+    display:flex;
+flex-direction:column;
+padding:5px
+}
 select{
     outline: none;
     color: rgb(34, 150, 185);
@@ -28,7 +33,7 @@ i{cursor: pointer;}
         flex-direction: column;
     }
     
-    .tarefasFeitas,.recomendation,.tarefas{
+    .DoneTasksDiv,.recomendation,.tarefas{
         height: 105vh;
         width: 100%;
         margin:0px
@@ -44,11 +49,6 @@ i{cursor: pointer;}
 
 `
 
-export const Name =styled.div`
-display:flex;
-flex-direction:column;
-padding:5px
-`
 export const Add = styled.div`
 display: flex;
 justify-content: center;
@@ -97,12 +97,12 @@ export const Done = styled.div`
     align-content: center;
 
 `
-export const TarefasFeitas = styled.div`
+export const DoneTasksDiv = styled.div`
 width: 33%;
 background-color: white;
 border: 5px solid rgb(34, 150, 185);
 `
-export const TarefasDiv = styled.div`
+export const TasksDiv = styled.div`
 width: 33%;
 background-color: white;
 border: 5px solid rgb(34, 150, 185);

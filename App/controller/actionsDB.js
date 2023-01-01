@@ -11,7 +11,7 @@ const consult =async (sql)=>{
 module.exports = {
     selectUncompleteTasks:async()=>{
         const uncomplete = 0
-        const sql = `SELECT * FROM ${table} WHERE task_complete='${uncomplete}'`        
+        const sql = `SELECT * FROM ${table} WHERE task_complete='${uncomplete}' ORDER BY task_date  LIMIT 3`        
         return consult(sql)
     },
     insertTasks:async(task_name)=>{
@@ -24,7 +24,7 @@ module.exports = {
     },
     selectCompleteTasks:async()=>{
         const complete = 1
-        const SQL = `SELECT * FROM ${table} WHERE task_complete='${complete}' ORDER BY task_date ASC `
+        const SQL = `SELECT * FROM ${table} WHERE task_complete='${complete}' ORDER BY task_date ASC LIMIT 3 `
         return consult(SQL)
     },
     updateTasks:async(id,DATE_TODAY,task_time)=>{
